@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Callback</title>
+  </head>
+  <body>
+   <script>
+        let products = [
+            {id:1,name:'Samsung S8',price:3000},
+            {id:2,name:'Samsung S7',price:2000},
+            {id:3,name:'Samsung S6',price:1000}
+            ]
+        let added = true;
+        function addProduct(prd,callback) {
+           if (added) {
+            setTimeout(() => {
+                products.push(prd);
+                callback(null,prd);
+            }, 0000);
+           } else {
+               callback("500",prd);
+           }
+        }
+        function getProduct(){
+            setTimeout(() => {
+                products.forEach((p)=>{console.log(p.name);});
+            }, 1000);
+        }
+        //addProduct({id:4,name:'Samsung S5',price:500},getProduct);
+        addProduct({id:5,name:'Samsung S4',price:200},function (err,data) {
+            if (err) {
+                console.log("hata : " + err);
+            }
+            else{
+                console.log(data);
+            }
+        });
+
+        let kisiler = [{id:1,ad:'Messi'},{id:2,ad:'Ronaldo'}];
+        const kisiEkle = (kisi,callback) => {
+           let bilgiKontrol;
+           if (kisi.id>kisiler[kisiler.length-1].id) {
+               bilgiKontrol = true;
+           }
+           else{
+               bilgiKontrol = false;
+           }
+           if (bilgiKontrol) {
+            setTimeout(() => {
+             kisiler.push(kisi);
+             console.log(kisiler);
+            }, 3000);
+           }
+           else{
+            callback("404",kisi);
+           }
+        };
+        let kisi = {id:3,ad:'Sergen'};
+        kisiEkle(kisi,(err,data)=>{
+            console.log("hata kodu: ",err, " " , data , " ekleme işlemi başarısız.");
+        });
+   </script>
+  </body>
+</html>

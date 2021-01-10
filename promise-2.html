@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Promise-2</title>
+  </head>
+  <body>
+   <script> 
+    let p = new Promise(function(res,rej){
+        if (false) {
+            res("success");
+        }
+        else{
+            rej("failure");
+        }
+    });
+    p.then((x)=>{console.log(x);}).catch((x)=>{console.log(x);});
+    new Promise((res,rej)=>{
+        setTimeout(() => {
+            if (1) {
+                res(9);
+            } else {
+             rej();   
+            }
+        },1000);
+    }).then((x)=>{console.log(x);return x*x;}).then((xkare)=>console.log(xkare)).catch(()=>{console.log("yanlis");});
+
+   const isMomHappy = true;
+   const willGetNewPhone = new Promise((res,rej)=>{
+    if (isMomHappy) {
+        const phone = {name:'SamsungS8',price:'4580'};
+        res(phone);
+    } else {
+        let err = "Mom is not happy. You haven't phone.";
+        rej(err);
+    }
+   });
+
+   const askMom = () =>{
+        willGetNewPhone.then(showToFriends).then(msg=>{console.log(msg);}).catch((err)=>{console.log(err)});
+   };
+
+   const showToFriends = (phone) => { 
+       const msg = "I have a phone " + phone.name;
+       return Promise.resolve(msg);
+   };
+
+   askMom();
+
+   </script>
+  </body>
+</html>

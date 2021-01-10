@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Promise-3</title>
+  </head>
+  <body>
+    <div id="div" class="container">
+    </div>
+   <script>
+      let myObj = {url:"https://randomuser.me/api/?results=5"};
+      let request = obj =>{
+        return new Promise((res,rej)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.open(obj.method || "GET",obj.url,true);
+            xhr.onload = () => {
+                if (xhr.status===200) {
+                    res(xhr.response);
+                }
+                else{
+                    rej(xhr.statusText);
+                }
+            };
+            xhr.onerror = () =>{
+                rej(xhr.statusText);
+            }
+            xhr.send();
+        });
+      };
+      request(myObj).then((data)=>{
+          let users = JSON.parse(data); 
+          let html = "";
+          users.results.forEach(user => {
+              html += `<div style="margin-bottom:1rem;"><img src="${user.picture.large}"></div>`;
+          });
+          document.getElementById("div").innerHTML = html;
+    }).catch((err)=>{console.log(err);});
+   </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Promise</title>
+  </head>
+  <body>
+   <div class="container">
+     <div class="row">
+           <div class="col-md-12 text-center mb-2 mt-2">2 + 2 = ?</div>
+           <div class="col-md-6 bg-danger p-5 text-white text-center" id="yanlis"></div>
+           <div class="col-md-6 bg-success p-5 text-white text-center" id="dogru"></div>
+       </div>
+   </div>
+   <script> 
+        let cevap = prompt("Cevabınız ? ");
+        const cevapKontrol = (cevap) => {
+            return new Promise(function (resolve,reject){
+                if (cevap==4) {
+                    resolve();
+                }
+                else{
+                    reject();
+                }
+            });
+        };
+        cevapKontrol(cevap).then(()=>{
+            document.getElementById("dogru").innerHTML += "<h4>Cevap: 4 tebrikler</h4>";
+        }).catch(()=>{
+            document.getElementById("yanlis").innerHTML += "<h4>Cevap: 4 olacaktı bilemediniz.</h4>";
+        });
+   </script>
+  </body>
+</html>
